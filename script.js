@@ -1,16 +1,19 @@
 window.addEventListener('load', getCurrentLocation)
 
-function storeCurrentLocation(position){
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    alert("latitude: " + latitude + "\nlongitude: " + longitude)
+function getCurrentLocation(){
+    navigator.geolocation.getCurrentPosition(getCurrentGeogPosition, locationErrorHandler)
+}
+
+function getCurrentGeogPosition(position){
+    const lat = position.coords.latitude;
+    const long = position.coords.longitude;
+    storeCoordsUrl(lat,long)
 }
 
 function locationErrorHandler(){
     alert("Error: Position is unavailble. Please give access")
-}
+}   
 
-function getCurrentLocation(){
-    navigator.geolocation.getCurrentPosition(storeCurrentLocation, locationErrorHandler)
-    
+function storeCoordsUrl(lat, long){
+    const api = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIKEY}`
 }
